@@ -13,8 +13,8 @@ const (
 
 var CLoud189 = map[string]Cloud189{}
 
-func (i *Invoker) Get(path string, params url.Values, data interface{}) error {
-	client := i.Client.SetBaseURL(baseUrl).DevMode().R()
+func (i *invoker) Get(path string, params url.Values, data interface{}) error {
+	client := i.client.SetBaseURL(baseUrl).DevMode().R()
 
 	client.QueryParams = params
 	client.SetQueryParam("noCache", Random())
@@ -23,7 +23,7 @@ func (i *Invoker) Get(path string, params url.Values, data interface{}) error {
 	err := i.do(client, "GET", path, &data)
 	return err
 }
-func (i *Invoker) do(client *req.Request, method string, path string, data interface{}) (err error) {
+func (i *invoker) do(client *req.Request, method string, path string, data interface{}) (err error) {
 	resp, err := client.Send(method, path)
 	if resp.StatusCode == 400 {
 		resMessage := jsoniter.Get(resp.Bytes(), "res_message").ToString()
@@ -45,8 +45,8 @@ func (i *Invoker) do(client *req.Request, method string, path string, data inter
 	return
 }
 
-func (i *Invoker) Post(path string, params url.Values, data interface{}) error {
-	client := i.Client.SetBaseURL(baseUrl).DevMode().R()
+func (i *invoker) Post(path string, params url.Values, data interface{}) error {
+	client := i.client.SetBaseURL(baseUrl).DevMode().R()
 
 	client.FormData = params
 	client.SetQueryParam("noCache", Random())
@@ -56,7 +56,7 @@ func (i *Invoker) Post(path string, params url.Values, data interface{}) error {
 	return err
 }
 
-func (i *Invoker) resetClient() error {
+func (i *invoker) resetClient() error {
 	// 设置查询参数
 	values := url.Values{}
 	values.Set("redirectURL", "https://cloud.189.cn/web/redirect.html")
@@ -65,7 +65,7 @@ func (i *Invoker) resetClient() error {
 	values.Set("browserId", "48d76ec45fec4cf27901a171759c289e")
 
 	// 创建客户端
-	client := i.Client.R()
+	client := i.client.R()
 
 	client.QueryParams = values
 
@@ -73,6 +73,6 @@ func (i *Invoker) resetClient() error {
 	if err != nil {
 		return err
 	}
-	i.Client = client.GetClient()
+	i.client = client.GetClient()
 	return nil
 }

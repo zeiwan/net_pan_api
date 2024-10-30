@@ -4,8 +4,9 @@ go 1.23.0
 
 require (
 	github.com/imroc/req/v3 v3.48.0
+	github.com/jinzhu/copier v0.4.0
 	github.com/json-iterator/go v1.1.12
-	go.uber.org/dig v1.18.0
+	github.com/spf13/cast v1.7.0
 )
 
 require (

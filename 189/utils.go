@@ -19,14 +19,14 @@ var (
 	_shareCodePart2 = regexp.MustCompile(`https://cloud.189.cn/web/share\?code=(\w+)`)
 )
 var b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-var BI_RM = "0123456789abcdefghijklmnopqrstuvwxyz"
+var bI_RM = "0123456789abcdefghijklmnopqrstuvwxyz"
 
 // 获取随机数
 func Random() string {
 	return fmt.Sprintf("0.%17v", math_rand.New(math_rand.NewSource(time.Now().UnixNano())).Int63n(100000000000000000))
 }
 func int2char(a int) string {
-	return strings.Split(BI_RM, "")[a]
+	return strings.Split(bI_RM, "")[a]
 }
 func RsaEncode(origData []byte, j_rsakey string) string {
 	publicKey := []byte("-----BEGIN PUBLIC KEY-----\n" + j_rsakey + "\n-----END PUBLIC KEY-----")

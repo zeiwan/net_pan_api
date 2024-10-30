@@ -6,7 +6,7 @@ type Account struct {
 	Cookie   string `json:"cookie"`
 	Token    string `json:"token"`
 }
+
 type UserInfo struct {
-	NickName string `json:"nickName"`
-	Account  string `json:"account"`
+	LoginName string `json:"loginName"`
 }

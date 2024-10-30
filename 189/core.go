@@ -1,33 +1,17 @@
 package _189
 
 import (
-	"core"
 	"core/model"
 	"errors"
 	"fmt"
 	"github.com/imroc/req/v3"
 	jsoniter "github.com/json-iterator/go"
+	"github.com/spf13/cast"
 	"net/http"
+	"net/url"
 )
 
-func init() {
-	fmt.Println("Cloud189 init")
-	core.RegisterPan("189", &Cloud189{})
-}
-func (c Cloud189) UserInfo(r *req.Client) (resp model.UserInfo, err error) {
-
-	fmt.Println("Cloud189 UserInfo", r)
-	//values := url.Values{}
-	path := "/open/user/getUserInfoForPortal.action"
-
-	request, err := r.R().Get(baseUrl + path)
-	fmt.Println(request)
-	//err = c.Invoker.Get(path, values, &resp)
-	return resp, nil
-}
-
-func (c Cloud189) AuthLogin(account model.Account) (r *req.Client, err error) {
-
+func (c core) login(account model.Account) (r *req.Client, err error) {
 	client := req.C()
 	tempUrl := "https://cloud.189.cn/api/portal/loginUrl.action?redirectURL=https%3A%2F%2Fcloud.189.cn%2Fmain.action"
 	var lt, reqId string
@@ -147,4 +131,79 @@ func (c Cloud189) AuthLogin(account model.Account) (r *req.Client, err error) {
 		err = errors.New(jsoniter.Get(loginResp.Bytes(), "msg").ToString())
 		return
 	}
+}
+func (c core) userInfo() (resp model.UserInfo, err error) {
+	values := url.Values{}
+	path := "/open/user/getUserInfoForPortal.action"
+	err = c.invoker.Get(path, values, &resp)
+	return
+}
+func (c core) getShareInfoByCodeV2(code string) (resp model.ShareInfoResp, err error) {
+	path := "/open/share/getShareInfoByCodeV2.action"
+	values := url.Values{}
+	values.Set("shareCode", code)
+	err = c.invoker.Get(path, values, &resp)
+	if err != nil {
+		return
+	}
+	return
+}
+func (c core) checkAccessCode(code, pwd string) (resp checkAccessCode, err error) {
+	path := "/open/share/checkAccessCode.action"
+	values := url.Values{}
+	values.Set("shareCode", code)
+	values.Set("accessCode", pwd)
+	err = c.invoker.Get(path, values, &resp)
+	if err != nil {
+		return
+	}
+	return
+}
+func (c core) shareFolderList(req model.ShareInfoResp) (resp listShareDirResp, err error) {
+	path := "/open/share/listShareDir.action"
+	values := url.Values{}
+	values.Set("pageNum", "1")
+	values.Set("pageSize", "60")
+	values.Set("fileId", req.FileId)
+	values.Set("shareDirFileId", req.FileId)
+	values.Set("isFolder", "true")
+	values.Set("shareId", cast.ToString(req.ShareId))
+	values.Set("shareMode", cast.ToString(req.ShareMode))
+	values.Set("iconOption", "5")
+	values.Set("orderBy", "lastOpTime")
+	values.Set("descending", "true")
+	values.Set("accessCode", req.Pwd)
+	err = c.invoker.Get(path, values, &resp)
+
+	if err != nil {
+		return
+	}
+	return
+}
+func (c core) createFolder(parentFolderId, folderName string) (resp model.CreateFolderResp, err error) {
+	path := "/open/file/createFolder.action"
+	values := url.Values{}
+	values.Set("parentFolderId", parentFolderId)
+	values.Set("folderName", folderName)
+	err = c.invoker.Post(path, values, &resp)
+	if err != nil {
+		return
+	}
+	return
+}
+func (c core) getMyFolder(id string) (resp []model.MyFolderListResp, err error) {
+	path := "/portal/getObjectFolderNodes.action"
+
+	values := url.Values{}
+	if id == "" {
+		id = "-11"
+	}
+	values.Set("id", id)
+	values.Set("orderBy", "1")
+	values.Set("order", "ASC")
+	err = c.invoker.Post(path, values, &resp)
+	if err != nil {
+		return
+	}
+	return
 }
