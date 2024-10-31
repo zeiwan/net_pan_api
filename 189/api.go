@@ -73,11 +73,12 @@ func (c *Cloud189) GetSharePageAll(req model.ShareInfoResp) (list model.SharePag
 			IsFolder: 0,
 		})
 	}
-	for _, f := range resp.FileListAO.FileList {
+	for _, f := range resp.FileListAO.FolderList {
 		folderLists = append(folderLists, model.SharePageFolderListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 0,
+			ParentId: cast.ToString(f.ParentId),
 		})
 	}
 	list = model.SharePageALL{
@@ -96,6 +97,7 @@ func (c *Cloud189) GetSharePageFolderList(req model.ShareInfoResp) (list []model
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 1,
+			ParentId: cast.ToString(f.ParentId),
 		})
 	}
 

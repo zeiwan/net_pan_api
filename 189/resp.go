@@ -15,6 +15,7 @@ type fileList struct {
 	FileListSize int    `json:"fileListSize"`
 	Id           int64  `json:"id"`
 	Name         string `json:"name"`
+	ParentId     int64  `json:"parentId"`
 }
 type folderList struct {
 	FileListSize int    `json:"fileListSize"`

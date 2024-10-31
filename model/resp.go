@@ -13,6 +13,7 @@ type SharePageFolderListResp struct {
 	Id       string `json:"id"`
 	Name     string `json:"name"`
 	IsFolder uint8  `json:"isFolder"`
+	ParentId string `json:"parentId"`
 }
 type SharePageFileListResp struct {
 	Id       string `json:"id"`
