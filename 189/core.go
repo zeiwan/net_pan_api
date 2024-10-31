@@ -1,9 +1,9 @@
 package _189
 
 import (
-	"core/model"
 	"errors"
 	"fmt"
+	"github.com/ZeiWan/NetPanSDK/model"
 	"github.com/imroc/req/v3"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/spf13/cast"

@@ -1,7 +1,7 @@
 package _189
 
 import (
-	"core/model"
+	"github.com/ZeiWan/NetPanSDK/model"
 	"github.com/imroc/req/v3"
 	"github.com/spf13/cast"
 )
