@@ -82,8 +82,8 @@ func (c core) login(account model.Account) (r *req.Client, err error) {
 	pubKey := encryptData.Get("pubKey").ToString()
 	pre := encryptData.Get("pre").ToString()
 	vCodeRS := ""
-	userRsa := RsaEncode([]byte(account.Username), pubKey)
-	passwordRsa := RsaEncode([]byte(account.Password), pubKey)
+	userRsa := rsaEncode([]byte(account.Username), pubKey)
+	passwordRsa := rsaEncode([]byte(account.Password), pubKey)
 
 	loginResp, err := client.R().
 		SetHeaders(map[string]string{

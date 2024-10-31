@@ -1,12 +1,14 @@
 package model
 
 type ShareInfoResp struct {
-	ShareId        int64  `json:"shareId"`
+	ShareId        int64  `json:"shareId"` // 189
 	FileId         string `json:"fileId"`
 	Pwd            string `json:"pwd"`
 	ShareMode      int32  `json:"shareMode"`
 	ShareDirFileId string `json:"shareDirFileId"`
 	FileName       string `json:"fileName"`
+	SToken         string `json:"stoken"` // quark
+	Code           string `json:"code"`   // quark
 }
 
 type SharePageFolderListResp struct {
@@ -14,6 +16,7 @@ type SharePageFolderListResp struct {
 	Name     string `json:"name"`
 	IsFolder uint8  `json:"isFolder"`
 	ParentId string `json:"parentId"`
+	SToken   string `json:"SToken"` // quark
 }
 type SharePageFileListResp struct {
 	Id       string `json:"id"`

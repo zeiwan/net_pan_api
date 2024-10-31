@@ -12,9 +12,6 @@ const (
 	COPY   = "COPY"
 )
 
-// func (c *Cloud189) ShareLink(fileId string, expireTime, shareType uint8) (string, error) {
-//
-// }
 func (c *Cloud189) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {
 	taskInfo, err := c.core.createBatchTask(COPY, targetFolderId, "", taskInfos)
 	if err == nil && taskInfo.TaskId != "" {
@@ -57,7 +54,7 @@ func (c *Cloud189) GetSharePageFileList(req model.ShareInfoResp) (list []model.S
 		list = append(list, model.SharePageFileListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
-			IsFolder: 0,
+			IsFolder: 1,
 		})
 	}
 	return
@@ -77,7 +74,7 @@ func (c *Cloud189) GetSharePageAll(req model.ShareInfoResp) (list model.SharePag
 		folderLists = append(folderLists, model.SharePageFolderListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
-			IsFolder: 0,
+			IsFolder: 1,
 			ParentId: cast.ToString(f.ParentId),
 		})
 	}
@@ -104,7 +101,7 @@ func (c *Cloud189) GetSharePageFolderList(req model.ShareInfoResp) (list []model
 	return
 }
 func (c *Cloud189) GetShareInfo(url, pwd string) (info model.ShareInfoResp, err error) {
-	code := ParseShareCode(url)
+	code := parseShareCode(url)
 	info, err = c.core.getShareInfoByCodeV2(code)
 	if err != nil {
 		return
@@ -129,6 +126,6 @@ func (c *Cloud189) AuthLogin(account model.Account) (client *req.Client, err err
 	client, err = c.core.login(account)
 	return
 }
-func (c *Cloud189) NewClient(r *req.Client) {
-	c.core.invoker = invoker{client: r}
+func (c *Cloud189) NewClient(client *req.Client) {
+	c.core.invoker = invoker{client: client}
 }
