@@ -186,7 +186,11 @@ func (c core) createFolder(parentFolderId, folderName string) (resp model.Create
 	values := url.Values{}
 	values.Set("parentFolderId", parentFolderId)
 	values.Set("folderName", folderName)
-	err = c.invoker.Post(path, values, &resp)
+	var r createFolderResp
+	err = c.invoker.Post(path, values, &r)
+	resp.Id = cast.ToString(r.Id)
+	resp.Name = r.Name
+
 	if err != nil {
 		return
 	}

@@ -36,6 +36,10 @@ type checkBatchTaskResp struct {
 	TaskId         string `json:"taskId"`
 	TaskStatus     int    `json:"taskStatus"`
 }
+type createFolderResp struct {
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+}
 
 //type createShareLink struct {
 //	ResCode       int    `json:"res_code"`
