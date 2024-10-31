@@ -6,6 +6,43 @@ import (
 	"github.com/spf13/cast"
 )
 
+const (
+	DELETE = "DELETE"
+	Move   = "Move"
+	COPY   = "COPY"
+)
+
+// func (c *Cloud189) ShareLink(fileId string, expireTime, shareType uint8) (string, error) {
+//
+// }
+func (c *Cloud189) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {
+	taskInfo, err := c.core.createBatchTask(COPY, targetFolderId, "", taskInfos)
+	if err == nil && taskInfo.TaskId != "" {
+		return
+	}
+	return c.core.checkBatchTask(COPY, taskInfo.TaskId, 3)
+}
+
+func (c *Cloud189) Move(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {
+	taskInfo, err := c.core.createBatchTask(Move, targetFolderId, "", taskInfos)
+	if err == nil && taskInfo.TaskId != "" {
+		return
+	}
+	return c.core.checkBatchTask(Move, taskInfo.TaskId, 3)
+}
+
+func (c *Cloud189) Delete(taskInfos []model.TaskInfosReq) (err error) {
+	taskInfo, err := c.core.createBatchTask(DELETE, "", "", taskInfos)
+	if err == nil && taskInfo.TaskId != "" {
+		return
+	}
+	return c.core.checkBatchTask(DELETE, taskInfo.TaskId, 3)
+}
+
+func (c *Cloud189) Rename(folderId, newFolderName string) (ok bool, err error) {
+	ok, err = c.core.rename(folderId, newFolderName)
+	return
+}
 func (c *Cloud189) GetMyFolder(id string) (resp []model.MyFolderListResp, err error) {
 	resp, err = c.core.getMyFolder(id)
 	return
@@ -14,13 +51,38 @@ func (c *Cloud189) CreateFolder(parentFolderId, folderName string) (resp model.C
 	resp, err = c.core.createFolder(parentFolderId, folderName)
 	return
 }
-func (c *Cloud189) GetShareNoteFileList(req model.ShareInfoResp) (list []model.SharePageFileListResp, err error) {
+func (c *Cloud189) GetSharePageFileList(req model.ShareInfoResp) (list []model.SharePageFileListResp, err error) {
 	resp, err := c.core.shareFolderList(req)
 	for _, f := range resp.FileListAO.FileList {
 		list = append(list, model.SharePageFileListResp{
-			Id:   cast.ToString(f.Id),
-			Name: f.Name,
+			Id:       cast.ToString(f.Id),
+			Name:     f.Name,
+			IsFolder: 0,
 		})
+	}
+	return
+}
+func (c *Cloud189) GetSharePageAll(req model.ShareInfoResp) (list model.SharePageALL, err error) {
+	resp, err := c.core.shareFolderList(req)
+	var fileLists []model.SharePageFileListResp
+	var folderLists []model.SharePageFolderListResp
+	for _, f := range resp.FileListAO.FileList {
+		fileLists = append(fileLists, model.SharePageFileListResp{
+			Id:       cast.ToString(f.Id),
+			Name:     f.Name,
+			IsFolder: 0,
+		})
+	}
+	for _, f := range resp.FileListAO.FileList {
+		folderLists = append(folderLists, model.SharePageFolderListResp{
+			Id:       cast.ToString(f.Id),
+			Name:     f.Name,
+			IsFolder: 0,
+		})
+	}
+	list = model.SharePageALL{
+		FileList:   fileLists,
+		FolderList: folderLists,
 	}
 	return
 }
@@ -31,8 +93,9 @@ func (c *Cloud189) GetSharePageFolderList(req model.ShareInfoResp) (list []model
 	}
 	for _, f := range resp.FileListAO.FolderList {
 		list = append(list, model.SharePageFolderListResp{
-			Id:   cast.ToString(f.Id),
-			Name: f.Name,
+			Id:       cast.ToString(f.Id),
+			Name:     f.Name,
+			IsFolder: 1,
 		})
 	}
 

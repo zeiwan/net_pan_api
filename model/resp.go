@@ -10,13 +10,20 @@ type ShareInfoResp struct {
 }
 
 type SharePageFolderListResp struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	IsFolder uint8  `json:"isFolder"`
 }
 type SharePageFileListResp struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	IsFolder uint8  `json:"isFolder"`
 }
+type SharePageALL struct {
+	FolderList []SharePageFolderListResp
+	FileList   []SharePageFileListResp
+}
+
 type CreateFolderResp struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`

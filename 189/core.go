@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cast"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 func (c core) login(account model.Account) (r *req.Client, err error) {
@@ -207,3 +208,66 @@ func (c core) getMyFolder(id string) (resp []model.MyFolderListResp, err error) 
 	}
 	return
 }
+func (c core) rename(folderId, newFolderName string) (bool, error) {
+	values := url.Values{}
+	values.Set("folderId", folderId)
+	values.Set("destFolderName", newFolderName)
+
+	path := "/open/file/renameFolder.action"
+	err := c.invoker.Post(path, values, nil)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
+}
+func (c core) createBatchTask(types, targetFolderId, shareId string, taskInfos []model.TaskInfosReq) (taskId taskInfoResp, err error) {
+	marshal, err := jsoniter.Marshal(taskInfos)
+	if err != nil {
+		return
+	}
+	values := url.Values{}
+	values.Set("type", types)
+	values.Set("taskInfos", string(marshal))
+	values.Set("targetFolderId", targetFolderId)
+	if shareId != "" {
+		values.Set("shareId", shareId)
+	}
+	path := "/open/batch/createBatchTask.action"
+	err = c.invoker.Post(path, values, &taskId)
+	return
+}
+func (c core) checkBatchTask(types, taskId string, maxRetries uint8) (err error) {
+	values := url.Values{}
+	values.Set("type", types)
+	values.Set("taskId", taskId)
+	path := "/open/batch/checkBatchTask.action"
+	var resp checkBatchTaskResp
+	err = c.invoker.Post(path, values, &resp)
+	if err != nil {
+		return
+	}
+	switch resp.TaskStatus {
+	case -1:
+		err = errors.New(resp.ResMessage)
+		return
+	case 2:
+		return
+	case 4:
+		return
+	}
+	if resp.SubTaskCount != resp.SuccessedCount && maxRetries > 0 {
+		time.Sleep(1 * time.Second)
+		return c.checkBatchTask(types, taskId, maxRetries-1)
+	}
+	return
+}
+
+//func (c core) shareLink(fileId string, expireTime, shareType uint8) (string, error) {
+//	values := url.Values{}
+//	values.Set("fileId", fileId)
+//	values.Set("expireTime", cast.ToString(expireTime))
+//	values.Set("shareType", cast.ToString(shareType))
+//
+//	path := "/open/share/createShareLink.action"
+//	c.invoker.Get(path, values, nil)
+//}

@@ -40,6 +40,16 @@ func TestShare(t *testing.T) {
 	fmt.Println(folders, err)
 	// 获取分享目录节点内容
 	resp.FileId = "724901134144036403"
-	files, err := c189.GetShareNoteFileList(resp)
+	files, err := c189.GetSharePageFolderList(resp)
 	fmt.Println(files, err)
+}
+func TestCreateBatchTask(t *testing.T) {
+	login()
+	m := []model.TaskInfosReq{
+		{FileId: "21367315488892503",
+			FileName: "11111",
+			IsFolder: 1},
+	}
+	err := c189.Delete(m)
+	fmt.Println(err)
 }
