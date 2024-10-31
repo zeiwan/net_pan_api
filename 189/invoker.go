@@ -27,14 +27,8 @@ func (i *invoker) do(client *req.Request, method string, path string, data inter
 		resMessage := jsoniter.Get(resp.Bytes(), "res_message").ToString()
 		errorCode := jsoniter.Get(resp.Bytes(), "errorCode").ToString()
 		if errorCode == "InvalidSessionKey" {
-			err := i.resetClient()
-			if err != nil {
-				return err
-			}
-			err = i.do(client, method, path, &data)
-			if err != nil {
-				return err
-			}
+			_ = i.resetClient()
+			_ = i.do(client, method, path, &data)
 		}
 		return errors.New(resMessage)
 	}
