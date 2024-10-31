@@ -120,7 +120,7 @@ func (c core) login(account model.Account) (r *req.Client, err error) {
 			return
 		}
 
-		resp, err = client.R().Get("https://cloud.189.cn/v2/getUserBriefInfo.action?noCache=" + Random())
+		resp, err = client.R().Get("https://cloud.189.cn/v2/getUserBriefInfo.action?noCache=" + random())
 		if err != nil {
 			return
 		}

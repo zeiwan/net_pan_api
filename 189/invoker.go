@@ -11,13 +11,11 @@ const (
 	baseUrl = "https://cloud.189.cn/api"
 )
 
-var CLoud189 = map[string]Cloud189{}
-
 func (i *invoker) Get(path string, params url.Values, data interface{}) error {
 	client := i.client.SetBaseURL(baseUrl).DevMode().R()
 
 	client.QueryParams = params
-	client.SetQueryParam("noCache", Random())
+	client.SetQueryParam("noCache", random())
 	client.SetHeader("Accept", "application/json;charset=UTF-8")
 
 	err := i.do(client, "GET", path, &data)
@@ -29,8 +27,14 @@ func (i *invoker) do(client *req.Request, method string, path string, data inter
 		resMessage := jsoniter.Get(resp.Bytes(), "res_message").ToString()
 		errorCode := jsoniter.Get(resp.Bytes(), "errorCode").ToString()
 		if errorCode == "InvalidSessionKey" {
-			i.resetClient()
-			i.do(client, method, path, &data)
+			err := i.resetClient()
+			if err != nil {
+				return err
+			}
+			err = i.do(client, method, path, &data)
+			if err != nil {
+				return err
+			}
 		}
 		return errors.New(resMessage)
 	}
@@ -49,7 +53,7 @@ func (i *invoker) Post(path string, params url.Values, data interface{}) error {
 	client := i.client.SetBaseURL(baseUrl).DevMode().R()
 
 	client.FormData = params
-	client.SetQueryParam("noCache", Random())
+	client.SetQueryParam("noCache", random())
 	client.SetHeader("Accept", "application/json;charset=UTF-8")
 	client.SetHeader("Content-Type", "application/x-www-form-urlencoded")
 	err := i.do(client, "POST", path, &data)

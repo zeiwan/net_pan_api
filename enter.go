@@ -1,8 +1,8 @@
 package core
 
 import (
-	_189 "core/189"
-	"core/model"
+	_189 "github.com/ZeiWan/NetPanSDK/189"
+	"github.com/ZeiWan/NetPanSDK/model"
 	"github.com/imroc/req/v3"
 )
 

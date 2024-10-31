@@ -1,9 +1,9 @@
 package test
 
 import (
-	"core"
-	"core/model"
 	"fmt"
+	core "github.com/ZeiWan/NetPanSDK"
+	"github.com/ZeiWan/NetPanSDK/model"
 	"testing"
 )
 
@@ -39,6 +39,7 @@ func TestShare(t *testing.T) {
 	folders, err := c189.GetSharePageFolderList(resp)
 	fmt.Println(folders, err)
 	// 获取分享目录节点内容
+
 	resp.FileId = "724901134144036403"
 	files, err := c189.GetSharePageFolderList(resp)
 	fmt.Println(files, err)

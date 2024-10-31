@@ -22,7 +22,7 @@ var b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 var bI_RM = "0123456789abcdefghijklmnopqrstuvwxyz"
 
 // 获取随机数
-func Random() string {
+func random() string {
 	return fmt.Sprintf("0.%17v", math_rand.New(math_rand.NewSource(time.Now().UnixNano())).Int63n(100000000000000000))
 }
 func int2char(a int) string {
