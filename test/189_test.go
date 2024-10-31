@@ -2,17 +2,17 @@ package test
 
 import (
 	"fmt"
-	core "github.com/ZeiWan/NetPanSDK"
+	main "github.com/ZeiWan/NetPanSDK"
 	"github.com/ZeiWan/NetPanSDK/model"
 	"testing"
 )
 
-var c189 = core.NewCloud189()
+var c189 = main.NewCloud189()
 
 func login() {
 	var obj model.Account
-	obj.Username = "15315496321"
-	obj.Password = "mogen123"
+	obj.Username = ""
+	obj.Password = ""
 
 	client, err := c189.AuthLogin(obj)
 	if err != nil {
