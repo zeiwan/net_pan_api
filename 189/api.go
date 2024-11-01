@@ -109,7 +109,7 @@ func (c *Cloud189) GetSharePageFolderList(req model.ShareInfoResp) (list []model
 	return
 }
 func (c *Cloud189) GetShareInfo(url, pwd string) (info model.ShareInfoResp, err error) {
-	code := ParseShareCode(url)
+	code := parseShareCode(url)
 	info, err = c.core.getShareInfoByCodeV2(code)
 	if err != nil {
 		return
