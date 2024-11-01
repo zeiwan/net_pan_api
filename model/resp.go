@@ -35,8 +35,15 @@ type CreateFolderResp struct {
 type MyFolderListResp struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`
+	Tag  string `json:"tag"` // 用来识别
 }
 type MyFileListResp struct {
-	FolderList []SharePageFolderListResp
-	FileList   []SharePageFileListResp
+	Id   string `json:"id"`
+	Name string `json:"name"`
+	Tag  string `json:"tag"` // 用来识别
+}
+
+type MyDirAll struct {
+	FolderList []MyFolderListResp
+	FileList   []MyFileListResp
 }

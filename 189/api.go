@@ -16,8 +16,27 @@ const (
 //
 // }
 
-func (c *Cloud189) GetMyFileAll(id string) (model.MyFileListResp, error) {
-	return c.core.getMyFileAll(id)
+func (c *Cloud189) GetMyFileAll(id string) (resp model.MyDirAll, err error) {
+	m, err := c.core.getMyFileAll(id)
+
+	if err != nil {
+		return
+	}
+	for _, r := range m.FileListAO.FileList {
+		resp.FileList = append(resp.FileList, model.MyFileListResp{
+			Id:   r.Name,
+			Name: r.Name,
+			Tag:  r.MD5,
+		})
+	}
+	for _, r := range m.FileListAO.FolderList {
+		resp.FolderList = append(resp.FolderList, model.MyFolderListResp{
+			Id:   r.Id,
+			Name: r.Name,
+			Tag:  r.MD5,
+		})
+	}
+	return
 }
 
 func (c *Cloud189) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {

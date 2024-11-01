@@ -275,7 +275,7 @@ func (c core) checkBatchTask(types, taskId string, maxRetries uint8) (err error)
 //		path := "/open/share/createShareLink.action"
 //		c.invoker.Get(path, values, nil)
 //	}
-func (c core) getMyFileAll(folderId string) (resp model.MyFileListResp, err error) {
+func (c core) getMyFileAll(folderId string) (resp listShareDirResp, err error) {
 	path := "/open/file/listFiles.action"
 	values := url.Values{}
 	values.Set("pageNum", "1")

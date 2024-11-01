@@ -4,6 +4,8 @@
     <inspection_tool class="GoDfaErrorMayBeNotNil" enabled="true" level="WARNING" enabled_by_default="true">
       <methods>
         <method importPath="github.com/ZeiWan/NetPanSDK/189" receiver="core" name="createBatchTask" />
+        <method importPath="github.com/ZeiWan/NetPanSDK/quark" receiver="core" name="shareDetail" />
+        <method importPath="github.com/ZeiWan/NetPanSDK/189" receiver="core" name="shareFolderList" />
       </methods>
     </inspection_tool>
   </profile>

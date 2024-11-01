@@ -33,7 +33,19 @@ func TestQShare(t *testing.T) {
 	url := "https://pan.quark.cn/s/41b0c70cf83c#/list/share"
 	info, err := q.GetShareInfo(url, "")
 	fmt.Println("TestQShare", info, err)
+
+	//info.SToken = "8Q47RG7Wx8x3JwNuFUeRaO7sJvNpqSyopSLJ259mzKU="
+	info.FileId = "0f1f1256816846dcaf50a98f60474f9e"
 	list, err := q.GetSharePageFolderList(info)
 	fmt.Println(list, err)
+	fileList, err := q.GetSharePageFileList(info)
+	fmt.Println(fileList, err)
+	pageAll, err := q.GetSharePageAll(info)
+	fmt.Println(pageAll, err)
+}
 
+func TestMyList(t *testing.T) {
+	qlogin()
+	folder, err := q.GetMyFolder("0")
+	fmt.Println(folder, err)
 }

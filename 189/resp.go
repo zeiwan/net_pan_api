@@ -13,15 +13,16 @@ type listShareDirResp struct {
 }
 type fileList struct {
 	FileListSize int    `json:"fileListSize"`
-	Id           int64  `json:"id"`
+	Id           string `json:"id"`
 	Name         string `json:"name"`
-	ParentId     int64  `json:"parentId"`
+	ParentId     string `json:"parentId"`
+	MD5          string `json:"md5"`
 }
 type folderList struct {
-	FileListSize int    `json:"fileListSize"`
-	Id           int64  `json:"id"`
-	Name         string `json:"name"`
-	ParentId     int64  `json:"parentId"`
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	ParentId string `json:"parentId"`
+	MD5      string `json:"md5"`
 }
 type taskInfoResp struct {
 	TaskId string `json:"taskId"`

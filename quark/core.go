@@ -11,6 +11,7 @@ import (
 const (
 	baseUrl = "https://pan.quark.cn"
 	driveH  = "https://drive-h.quark.cn"
+	drivePC = "https://drive-pc.quark.cn"
 )
 
 func (c core) login(account model.Account) (*req.Client, error) {
@@ -94,5 +95,23 @@ func (c core) shareDetail(info model.ShareInfoResp) (resp sharePageFolderListRes
 	path := "/1/clouddrive/share/sharepage/detail"
 
 	err = c.invoker.Get(driveH, path, values, &resp)
+	return
+}
+func (c core) getMyFolderNodes(id string) (resp myFolderResp, err error) {
+	path := "/1/clouddrive/file/sort"
+	values := url.Values{}
+	values.Add("uc_param_str", "")
+	if id == "" {
+		id = "0"
+	}
+	values.Add("pdir_fid", id)
+	values.Add("_page", "1")
+	values.Add("_size", "100")
+	values.Add("_fetch_total", "false")
+	values.Add("_fetch_sub_dirs", "1")
+	values.Add("_sort", "")
+	values.Add("__t", GetTimestamp())
+
+	err = c.invoker.Get(drivePC, path, values, &resp)
 	return
 }
