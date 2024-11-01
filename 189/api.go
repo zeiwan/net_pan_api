@@ -15,6 +15,11 @@ const (
 // func (c *Cloud189) ShareLink(fileId string, expireTime, shareType uint8) (string, error) {
 //
 // }
+
+func (c *Cloud189) GetMyFileAll(id string) (model.MyFileListResp, error) {
+	return c.core.getMyFileAll(id)
+}
+
 func (c *Cloud189) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {
 	taskInfo, err := c.core.createBatchTask(COPY, targetFolderId, "", taskInfos)
 	if err == nil && taskInfo.TaskId != "" {

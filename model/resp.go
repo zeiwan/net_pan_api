@@ -33,3 +33,7 @@ type MyFolderListResp struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`
 }
+type MyFileListResp struct {
+	FolderList []SharePageFolderListResp
+	FileList   []SharePageFileListResp
+}

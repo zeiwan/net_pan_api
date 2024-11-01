@@ -266,12 +266,28 @@ func (c core) checkBatchTask(types, taskId string, maxRetries uint8) (err error)
 	return
 }
 
-//func (c core) shareLink(fileId string, expireTime, shareType uint8) (string, error) {
-//	values := url.Values{}
-//	values.Set("fileId", fileId)
-//	values.Set("expireTime", cast.ToString(expireTime))
-//	values.Set("shareType", cast.ToString(shareType))
+//	func (c core) shareLink(fileId string, expireTime, shareType uint8) (string, error) {
+//		values := url.Values{}
+//		values.Set("fileId", fileId)
+//		values.Set("expireTime", cast.ToString(expireTime))
+//		values.Set("shareType", cast.ToString(shareType))
 //
-//	path := "/open/share/createShareLink.action"
-//	c.invoker.Get(path, values, nil)
-//}
+//		path := "/open/share/createShareLink.action"
+//		c.invoker.Get(path, values, nil)
+//	}
+func (c core) getMyFileAll(folderId string) (resp model.MyFileListResp, err error) {
+	path := "/open/file/listFiles.action"
+	values := url.Values{}
+	values.Set("pageNum", "1")
+	values.Set("pageSize", "60")
+	values.Set("mediaType", "0")
+	values.Set("folderId", folderId)
+	values.Set("iconOption", "5")
+	values.Set("orderBy", "lastOpTime")
+	values.Set("descending", "true")
+	err = c.invoker.Get(path, values, &resp)
+	if err != nil {
+		return
+	}
+	return
+}

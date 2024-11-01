@@ -25,6 +25,7 @@ type NetPan interface {
 	CreateFolder(parentFolderId, folderName string) (model.CreateFolderResp, error)
 	// GetMyFolder	获取我的目录
 	GetMyFolder(id string) ([]model.MyFolderListResp, error)
+	GetMyFileAll(id string) (model.MyFileListResp, error)
 	//	GetMyFolderAll 获取我的目录所有文件
 	//GetMyFolderAll(id string) (model.MyFolderALL, error)
 	////	ShareLink 生成分享链接
