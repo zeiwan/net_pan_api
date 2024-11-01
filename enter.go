@@ -2,7 +2,10 @@ package core
 
 import (
 	_189 "github.com/ZeiWan/NetPanSDK/189"
+	"github.com/ZeiWan/NetPanSDK/aliyun"
 	"github.com/ZeiWan/NetPanSDK/model"
+	"github.com/ZeiWan/NetPanSDK/quark"
+
 	"github.com/imroc/req/v3"
 )
 
@@ -42,4 +45,11 @@ type NetPan interface {
 
 func NewCloud189() NetPan {
 	return &_189.Cloud189{}
+}
+func NewCloudALi() NetPan {
+	return &aliyun.CloudALi{}
+}
+
+func NewCloudQuark() NetPan {
+	return &quark.CloudQuark{}
 }

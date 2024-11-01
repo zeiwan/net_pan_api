@@ -28,7 +28,7 @@ func random() string {
 func int2char(a int) string {
 	return strings.Split(bI_RM, "")[a]
 }
-func RsaEncode(origData []byte, j_rsakey string) string {
+func rsaEncode(origData []byte, j_rsakey string) string {
 	publicKey := []byte("-----BEGIN PUBLIC KEY-----\n" + j_rsakey + "\n-----END PUBLIC KEY-----")
 	block, _ := pem.Decode(publicKey)
 	pubInterface, _ := x509.ParsePKIXPublicKey(block.Bytes)
@@ -73,7 +73,7 @@ func b64tohex(a string) string {
 	return d
 }
 
-func ParseShareCode(url string) string {
+func parseShareCode(url string) string {
 	var matched []string
 	if matched = _shareCodePart1.FindStringSubmatch(url); len(matched) > 1 {
 		return matched[1]
