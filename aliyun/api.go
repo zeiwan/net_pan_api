@@ -69,3 +69,8 @@ func (c CloudALi) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) er
 	//TODO implement me
 	panic("implement me")
 }
+
+func (c CloudALi) GetMyFileAll(id string) (model.MyFileListResp, error) {
+	//TODO implement me
+	panic("implement me")
+}

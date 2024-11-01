@@ -1,4 +1,4 @@
-package core
+package base
 
 import (
 	_189 "github.com/ZeiWan/NetPanSDK/189"

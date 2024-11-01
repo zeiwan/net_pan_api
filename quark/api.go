@@ -80,3 +80,7 @@ func (c *CloudQuark) Copy(targetFolderId string, taskInfos []model.TaskInfosReq)
 	//TODO implement me
 	panic("implement me")
 }
+func (c *CloudQuark) GetMyFileAll(id string) (model.MyFileListResp, error) {
+	//TODO implement me
+	panic("implement me")
+}

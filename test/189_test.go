@@ -2,7 +2,7 @@ package test
 
 import (
 	"fmt"
-	main "github.com/ZeiWan/NetPanSDK"
+	main "github.com/ZeiWan/NetPanSDK/base"
 	"github.com/ZeiWan/NetPanSDK/model"
 	"testing"
 )

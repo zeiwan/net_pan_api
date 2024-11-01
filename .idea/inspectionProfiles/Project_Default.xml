@@ -3,7 +3,7 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="GoDfaErrorMayBeNotNil" enabled="true" level="WARNING" enabled_by_default="true">
       <methods>
-        <method importPath="github.com/imroc/req/v3" receiver="*Request" name="Get" />
+        <method importPath="github.com/ZeiWan/NetPanSDK/189" receiver="core" name="createBatchTask" />
       </methods>
     </inspection_tool>
   </profile>
