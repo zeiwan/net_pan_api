@@ -1,4 +1,4 @@
-module github.com/ZeiWan/NetPanSDK
+module github.com/zeiwan/netpansdk
 
 go 1.23.0
 
