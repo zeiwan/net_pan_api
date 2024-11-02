@@ -1,4 +1,4 @@
-package model
+package module
 
 type ShareInfoResp struct {
 	ShareId        int64  `json:"shareId"` // 189

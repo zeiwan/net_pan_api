@@ -2,15 +2,15 @@ package test
 
 import (
 	"fmt"
-	main "github.com/ZeiWan/NetPanSDK/base"
-	"github.com/ZeiWan/NetPanSDK/model"
+	"github.com/ZeiWan/NetPanSDK/base"
+	"github.com/ZeiWan/NetPanSDK/module"
 	"testing"
 )
 
-var c189 = main.NewCloud189()
+var c189 = base.NewCloud189()
 
 func login() {
-	var obj model.Account
+	var obj module.Account
 	obj.Username = ""
 	obj.Password = ""
 
@@ -46,7 +46,7 @@ func TestShare(t *testing.T) {
 }
 func TestCreateBatchTask(t *testing.T) {
 	login()
-	m := []model.TaskInfosReq{
+	m := []module.TaskInfosReq{
 		{FileId: "21367315488892503",
 			FileName: "11111",
 			IsFolder: 1},

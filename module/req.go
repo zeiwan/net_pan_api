@@ -1,4 +1,4 @@
-package model
+package module
 
 type TaskInfosReq struct {
 	FileId   string `json:"fileId"`

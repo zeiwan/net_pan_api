@@ -3,7 +3,7 @@ package _189
 import (
 	"errors"
 	"fmt"
-	"github.com/ZeiWan/NetPanSDK/model"
+	"github.com/ZeiWan/NetPanSDK/module"
 	"github.com/imroc/req/v3"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/spf13/cast"
@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func (c core) login(account model.Account) (r *req.Client, err error) {
+func (c core) login(account module.Account) (r *req.Client, err error) {
 	client := req.C()
 	tempUrl := "https://cloud.189.cn/api/portal/loginUrl.action?redirectURL=https%3A%2F%2Fcloud.189.cn%2Fmain.action"
 	var lt, reqId string
@@ -133,13 +133,13 @@ func (c core) login(account model.Account) (r *req.Client, err error) {
 		return
 	}
 }
-func (c core) userInfo() (resp model.UserInfo, err error) {
+func (c core) userInfo() (resp module.UserInfo, err error) {
 	values := url.Values{}
 	path := "/open/user/getUserInfoForPortal.action"
 	err = c.invoker.Get(path, values, &resp)
 	return
 }
-func (c core) getShareInfoByCodeV2(code string) (resp model.ShareInfoResp, err error) {
+func (c core) getShareInfoByCodeV2(code string) (resp module.ShareInfoResp, err error) {
 	path := "/open/share/getShareInfoByCodeV2.action"
 	values := url.Values{}
 	values.Set("shareCode", code)
@@ -160,7 +160,7 @@ func (c core) checkAccessCode(code, pwd string) (resp checkAccessCode, err error
 	}
 	return
 }
-func (c core) shareFolderList(req model.ShareInfoResp) (resp listShareDirResp, err error) {
+func (c core) shareFolderList(req module.ShareInfoResp) (resp listShareDirResp, err error) {
 	path := "/open/share/listShareDir.action"
 	values := url.Values{}
 	values.Set("pageNum", "1")
@@ -181,7 +181,7 @@ func (c core) shareFolderList(req model.ShareInfoResp) (resp listShareDirResp, e
 	}
 	return
 }
-func (c core) createFolder(parentFolderId, folderName string) (resp model.CreateFolderResp, err error) {
+func (c core) createFolder(parentFolderId, folderName string) (resp module.CreateFolderResp, err error) {
 	path := "/open/file/createFolder.action"
 	values := url.Values{}
 	values.Set("parentFolderId", parentFolderId)
@@ -196,7 +196,7 @@ func (c core) createFolder(parentFolderId, folderName string) (resp model.Create
 	}
 	return
 }
-func (c core) getMyFolder(id string) (resp []model.MyFolderListResp, err error) {
+func (c core) getMyFolder(id string) (resp []module.MyFolderListResp, err error) {
 	path := "/portal/getObjectFolderNodes.action"
 
 	values := url.Values{}
@@ -224,7 +224,7 @@ func (c core) rename(folderId, newFolderName string) (bool, error) {
 	}
 	return true, nil
 }
-func (c core) createBatchTask(types, targetFolderId, shareId string, taskInfos []model.TaskInfosReq) (taskId taskInfoResp, err error) {
+func (c core) createBatchTask(types, targetFolderId, shareId string, taskInfos []module.TaskInfosReq) (taskId taskInfoResp, err error) {
 	marshal, err := jsoniter.Marshal(taskInfos)
 	if err != nil {
 		return

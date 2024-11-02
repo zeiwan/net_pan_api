@@ -1,4 +1,4 @@
-package model
+package module
 
 type Account struct {
 	Username string `json:"username"`

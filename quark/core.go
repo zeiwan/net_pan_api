@@ -2,7 +2,7 @@ package quark
 
 import (
 	"errors"
-	"github.com/ZeiWan/NetPanSDK/model"
+	"github.com/ZeiWan/NetPanSDK/module"
 	"github.com/imroc/req/v3"
 	jsoniter "github.com/json-iterator/go"
 	"net/url"
@@ -14,7 +14,7 @@ const (
 	drivePC = "https://drive-pc.quark.cn"
 )
 
-func (c core) login(account model.Account) (*req.Client, error) {
+func (c core) login(account module.Account) (*req.Client, error) {
 	values := url.Values{}
 	values.Set("fr", "pc")
 	values.Set("platform", "pc")
@@ -35,7 +35,7 @@ func (c core) login(account model.Account) (*req.Client, error) {
 
 	return client, err
 }
-func (c core) userInfo() (resp model.UserInfo, err error) {
+func (c core) userInfo() (resp module.UserInfo, err error) {
 
 	values := url.Values{}
 
@@ -45,7 +45,7 @@ func (c core) userInfo() (resp model.UserInfo, err error) {
 	resp.LoginName = obj.Data.Nickname
 	return
 }
-func (c core) shareInfo(code, pwd string) (info model.ShareInfoResp, err error) {
+func (c core) shareInfo(code, pwd string) (info module.ShareInfoResp, err error) {
 	values := url.Values{}
 
 	values.Set("uc_param_str", "")
@@ -76,7 +76,7 @@ func (c core) shareInfo(code, pwd string) (info model.ShareInfoResp, err error) 
 	info.Pwd = pwd
 	return info, err
 }
-func (c core) shareDetail(info model.ShareInfoResp) (resp sharePageFolderListResp, err error) {
+func (c core) shareDetail(info module.ShareInfoResp) (resp sharePageFolderListResp, err error) {
 	values := url.Values{}
 
 	values.Add("uc_param_str", "")

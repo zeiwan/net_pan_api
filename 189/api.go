@@ -1,7 +1,7 @@
 package _189
 
 import (
-	"github.com/ZeiWan/NetPanSDK/model"
+	"github.com/ZeiWan/NetPanSDK/module"
 	"github.com/imroc/req/v3"
 	"github.com/spf13/cast"
 )
@@ -16,21 +16,21 @@ const (
 //
 // }
 
-func (c *Cloud189) GetMyFileAll(id string) (resp model.MyDirAll, err error) {
+func (c *Cloud189) GetMyFileAll(id string) (resp module.MyDirAll, err error) {
 	m, err := c.core.getMyFileAll(id)
 
 	if err != nil {
 		return
 	}
 	for _, r := range m.FileListAO.FileList {
-		resp.FileList = append(resp.FileList, model.MyFileListResp{
+		resp.FileList = append(resp.FileList, module.MyFileListResp{
 			Id:   r.Name,
 			Name: r.Name,
 			Tag:  r.MD5,
 		})
 	}
 	for _, r := range m.FileListAO.FolderList {
-		resp.FolderList = append(resp.FolderList, model.MyFolderListResp{
+		resp.FolderList = append(resp.FolderList, module.MyFolderListResp{
 			Id:   r.Id,
 			Name: r.Name,
 			Tag:  r.MD5,
@@ -39,7 +39,7 @@ func (c *Cloud189) GetMyFileAll(id string) (resp model.MyDirAll, err error) {
 	return
 }
 
-func (c *Cloud189) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {
+func (c *Cloud189) Copy(targetFolderId string, taskInfos []module.TaskInfosReq) (err error) {
 	taskInfo, err := c.core.createBatchTask(COPY, targetFolderId, "", taskInfos)
 	if err == nil && taskInfo.TaskId != "" {
 		return
@@ -47,7 +47,7 @@ func (c *Cloud189) Copy(targetFolderId string, taskInfos []model.TaskInfosReq) (
 	return c.core.checkBatchTask(COPY, taskInfo.TaskId, 3)
 }
 
-func (c *Cloud189) Move(targetFolderId string, taskInfos []model.TaskInfosReq) (err error) {
+func (c *Cloud189) Move(targetFolderId string, taskInfos []module.TaskInfosReq) (err error) {
 	taskInfo, err := c.core.createBatchTask(Move, targetFolderId, "", taskInfos)
 	if err == nil && taskInfo.TaskId != "" {
 		return
@@ -55,7 +55,7 @@ func (c *Cloud189) Move(targetFolderId string, taskInfos []model.TaskInfosReq) (
 	return c.core.checkBatchTask(Move, taskInfo.TaskId, 3)
 }
 
-func (c *Cloud189) Delete(taskInfos []model.TaskInfosReq) (err error) {
+func (c *Cloud189) Delete(taskInfos []module.TaskInfosReq) (err error) {
 	taskInfo, err := c.core.createBatchTask(DELETE, "", "", taskInfos)
 	if err == nil && taskInfo.TaskId != "" {
 		return
@@ -67,18 +67,18 @@ func (c *Cloud189) Rename(folderId, newFolderName string) (ok bool, err error) {
 	ok, err = c.core.rename(folderId, newFolderName)
 	return
 }
-func (c *Cloud189) GetMyFolder(id string) (resp []model.MyFolderListResp, err error) {
+func (c *Cloud189) GetMyFolder(id string) (resp []module.MyFolderListResp, err error) {
 	resp, err = c.core.getMyFolder(id)
 	return
 }
-func (c *Cloud189) CreateFolder(parentFolderId, folderName string) (resp model.CreateFolderResp, err error) {
+func (c *Cloud189) CreateFolder(parentFolderId, folderName string) (resp module.CreateFolderResp, err error) {
 	resp, err = c.core.createFolder(parentFolderId, folderName)
 	return
 }
-func (c *Cloud189) GetSharePageFileList(req model.ShareInfoResp) (list []model.SharePageFileListResp, err error) {
+func (c *Cloud189) GetSharePageFileList(req module.ShareInfoResp) (list []module.SharePageFileListResp, err error) {
 	resp, err := c.core.shareFolderList(req)
 	for _, f := range resp.FileListAO.FileList {
-		list = append(list, model.SharePageFileListResp{
+		list = append(list, module.SharePageFileListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 0,
@@ -86,38 +86,38 @@ func (c *Cloud189) GetSharePageFileList(req model.ShareInfoResp) (list []model.S
 	}
 	return
 }
-func (c *Cloud189) GetSharePageAll(req model.ShareInfoResp) (list model.SharePageALL, err error) {
+func (c *Cloud189) GetSharePageAll(req module.ShareInfoResp) (list module.SharePageALL, err error) {
 	resp, err := c.core.shareFolderList(req)
-	var fileLists []model.SharePageFileListResp
-	var folderLists []model.SharePageFolderListResp
+	var fileLists []module.SharePageFileListResp
+	var folderLists []module.SharePageFolderListResp
 	for _, f := range resp.FileListAO.FileList {
-		fileLists = append(fileLists, model.SharePageFileListResp{
+		fileLists = append(fileLists, module.SharePageFileListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 0,
 		})
 	}
 	for _, f := range resp.FileListAO.FolderList {
-		folderLists = append(folderLists, model.SharePageFolderListResp{
+		folderLists = append(folderLists, module.SharePageFolderListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 0,
 			ParentId: cast.ToString(f.ParentId),
 		})
 	}
-	list = model.SharePageALL{
+	list = module.SharePageALL{
 		FileList:   fileLists,
 		FolderList: folderLists,
 	}
 	return
 }
-func (c *Cloud189) GetSharePageFolderList(req model.ShareInfoResp) (list []model.SharePageFolderListResp, err error) {
+func (c *Cloud189) GetSharePageFolderList(req module.ShareInfoResp) (list []module.SharePageFolderListResp, err error) {
 	resp, err := c.core.shareFolderList(req)
 	if err != nil {
 		return
 	}
 	for _, f := range resp.FileListAO.FolderList {
-		list = append(list, model.SharePageFolderListResp{
+		list = append(list, module.SharePageFolderListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 1,
@@ -127,7 +127,7 @@ func (c *Cloud189) GetSharePageFolderList(req model.ShareInfoResp) (list []model
 
 	return
 }
-func (c *Cloud189) GetShareInfo(url, pwd string) (info model.ShareInfoResp, err error) {
+func (c *Cloud189) GetShareInfo(url, pwd string) (info module.ShareInfoResp, err error) {
 	code := parseShareCode(url)
 	info, err = c.core.getShareInfoByCodeV2(code)
 	if err != nil {
@@ -145,11 +145,11 @@ func (c *Cloud189) GetShareInfo(url, pwd string) (info model.ShareInfoResp, err 
 	}
 	return
 }
-func (c *Cloud189) UserInfo() (resp model.UserInfo, err error) {
+func (c *Cloud189) UserInfo() (resp module.UserInfo, err error) {
 	resp, err = c.core.userInfo()
 	return
 }
-func (c *Cloud189) AuthLogin(account model.Account) (client *req.Client, err error) {
+func (c *Cloud189) AuthLogin(account module.Account) (client *req.Client, err error) {
 	client, err = c.core.login(account)
 	return
 }
