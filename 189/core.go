@@ -3,7 +3,8 @@ package _189
 import (
 	"errors"
 	"fmt"
-	"github.com/ZeiWan/NetPanSDK/module"
+	"github.com/zeiwan/net_pan_api/module"
+
 	"github.com/imroc/req/v3"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/spf13/cast"

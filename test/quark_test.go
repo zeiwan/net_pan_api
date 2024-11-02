@@ -2,8 +2,8 @@ package test
 
 import (
 	"fmt"
-	"github.com/ZeiWan/NetPanSDK/base"
-	"github.com/ZeiWan/NetPanSDK/module"
+	"github.com/zeiwan/net_pan_api/base"
+	"github.com/zeiwan/net_pan_api/module"
 	"testing"
 )
 

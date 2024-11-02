@@ -1,8 +1,8 @@
 package aliyun
 
 import (
-	"github.com/ZeiWan/NetPanSDK/module"
 	"github.com/imroc/req/v3"
+	"github.com/zeiwan/net_pan_api/module"
 )
 
 func (c CloudALi) AuthLogin(account module.Account) (*req.Client, error) {

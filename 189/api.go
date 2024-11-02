@@ -1,9 +1,9 @@
 package _189
 
 import (
-	"github.com/ZeiWan/NetPanSDK/module"
 	"github.com/imroc/req/v3"
 	"github.com/spf13/cast"
+	"github.com/zeiwan/net_pan_api/module"
 )
 
 const (

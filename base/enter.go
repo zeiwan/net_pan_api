@@ -1,12 +1,11 @@
 package base
 
 import (
-	_189 "github.com/ZeiWan/NetPanSDK/189"
-	"github.com/ZeiWan/NetPanSDK/aliyun"
-	"github.com/ZeiWan/NetPanSDK/module"
-	"github.com/ZeiWan/NetPanSDK/quark"
-
 	"github.com/imroc/req/v3"
+	_189 "github.com/zeiwan/net_pan_api/189"
+	"github.com/zeiwan/net_pan_api/aliyun"
+	"github.com/zeiwan/net_pan_api/module"
+	"github.com/zeiwan/net_pan_api/quark"
 )
 
 type NetPan interface {
