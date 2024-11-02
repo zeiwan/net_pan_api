@@ -5,21 +5,18 @@ type checkAccessCode struct {
 }
 type listShareDirResp struct {
 	FileListAO struct {
-		Count        int          `json:"count"`
-		FileList     []fileList   `json:"fileList"`
-		FileListSize int          `json:"fileListSize"`
-		FolderList   []folderList `json:"folderList"`
+		FileList   []fileList   `json:"fileList"`
+		FolderList []folderList `json:"folderList"`
 	} `json:"fileListAO"`
 }
 type fileList struct {
-	FileListSize int    `json:"fileListSize"`
-	Id           string `json:"id"`
-	Name         string `json:"name"`
-	ParentId     string `json:"parentId"`
-	MD5          string `json:"md5"`
+	Id       int64  `json:"id"`
+	Name     string `json:"name"`
+	ParentId string `json:"parentId"`
+	MD5      string `json:"md5"`
 }
 type folderList struct {
-	Id       string `json:"id"`
+	Id       int64  `json:"id"`
 	Name     string `json:"name"`
 	ParentId string `json:"parentId"`
 	MD5      string `json:"md5"`
@@ -41,15 +38,3 @@ type createFolderResp struct {
 	Id   int64  `json:"id"`
 	Name string `json:"name"`
 }
-
-//type createShareLink struct {
-//	ResCode       int    `json:"res_code"`
-//	ResMessage    string `json:"res_message"`
-//	ShareLinkList []struct {
-//		AccessCode string `json:"accessCode"`
-//		AccessUrl  string `json:"accessUrl"`
-//		FileId     string `json:"fileId"`
-//		ShareId    int64  `json:"shareId"`
-//		Url        string `json:"url"`
-//	} `json:"shareLinkList"`
-//}

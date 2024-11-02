@@ -24,14 +24,14 @@ func (c *Cloud189) GetMyFileAll(id string) (resp module.MyDirAll, err error) {
 	}
 	for _, r := range m.FileListAO.FileList {
 		resp.FileList = append(resp.FileList, module.MyFileListResp{
-			Id:   r.Name,
+			Id:   cast.ToString(r.Id),
 			Name: r.Name,
 			Tag:  r.MD5,
 		})
 	}
 	for _, r := range m.FileListAO.FolderList {
 		resp.FolderList = append(resp.FolderList, module.MyFolderListResp{
-			Id:   r.Id,
+			Id:   cast.ToString(r.Id),
 			Name: r.Name,
 			Tag:  r.MD5,
 		})
