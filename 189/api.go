@@ -94,7 +94,7 @@ func (c *Cloud189) GetSharePageAll(req module.ShareInfoResp) (list module.ShareP
 		fileLists = append(fileLists, module.SharePageFileListResp{
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
-			IsFolder: 0,
+			IsFolder: cast.ToUint8(f.ParentId),
 		})
 	}
 	for _, f := range resp.FileListAO.FolderList {

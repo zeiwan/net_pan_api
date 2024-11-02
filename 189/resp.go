@@ -12,13 +12,13 @@ type listShareDirResp struct {
 type fileList struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
-	ParentId string `json:"parentId"`
+	ParentId int    `json:"parentId"`
 	MD5      string `json:"md5"`
 }
 type folderList struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
-	ParentId string `json:"parentId"`
+	ParentId int    `json:"parentId"`
 	MD5      string `json:"md5"`
 }
 type taskInfoResp struct {
