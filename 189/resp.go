@@ -10,17 +10,14 @@ type listShareDirResp struct {
 	} `json:"fileListAO"`
 }
 type fileList struct {
-	Id       int64  `json:"id"`
-	Name     string `json:"name"`
-	ParentId int64  `json:"parentId"`
-
-	MD5 string `json:"md5"`
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+	MD5  string `json:"md5"`
 }
 type folderList struct {
-	Id       int64  `json:"id"`
-	Name     string `json:"name"`
-	ParentId int64  `json:"parentId"`
-	MD5      string `json:"md5"`
+	Id   int64  `json:"id"`
+	Name string `json:"name"`
+	MD5  string `json:"md5"`
 }
 type taskInfoResp struct {
 	TaskId string `json:"taskId"`

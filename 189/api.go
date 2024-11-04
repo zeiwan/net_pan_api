@@ -84,9 +84,9 @@ func (c *Cloud189) GetSharePageFileList(req module.ShareInfoResp) (list []module
 	resp, err := c.core.shareFolderList(req)
 	for _, f := range resp.FileListAO.FileList {
 		list = append(list, module.SharePageFileListResp{
-			Id:       cast.ToString(f.Id),
-			Name:     f.Name,
-			IsFolder: 0,
+			Id:   cast.ToString(f.Id),
+			Name: f.Name,
+			Tag:  f.MD5,
 		})
 	}
 	return
@@ -126,7 +126,7 @@ func (c *Cloud189) GetSharePageFolderList(req module.ShareInfoResp) (list []modu
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 1,
-			Tag:      cast.ToString(f.ParentId),
+			Tag:      f.MD5,
 		})
 	}
 
