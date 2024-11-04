@@ -38,7 +38,7 @@ func (c *CloudQuark) GetSharePageFolderList(info module.ShareInfoResp) (resp []m
 				Id:       s.Fid,
 				Name:     s.FileName,
 				IsFolder: cast.ToUint8(s.FileType),
-				ParentId: s.Fid,
+				Tag:      s.Fid,
 				SToken:   s.ShareFidToken,
 			})
 		}
@@ -80,7 +80,7 @@ func (c *CloudQuark) GetSharePageAll(info module.ShareInfoResp) (resp module.Sha
 				Id:       s.Fid,
 				Name:     s.FileName,
 				IsFolder: cast.ToUint8(s.FileType),
-				ParentId: s.Fid,
+				Tag:      s.Fid,
 				SToken:   s.ShareFidToken,
 			})
 		} else {
