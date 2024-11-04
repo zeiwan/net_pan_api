@@ -107,7 +107,7 @@ func (c *Cloud189) GetSharePageAll(req module.ShareInfoResp) (list module.ShareP
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 0,
-			ParentId: cast.ToString(f.ParentId),
+			Tag:      cast.ToString(f.ParentId),
 		})
 	}
 	list = module.SharePageALL{
@@ -126,7 +126,7 @@ func (c *Cloud189) GetSharePageFolderList(req module.ShareInfoResp) (list []modu
 			Id:       cast.ToString(f.Id),
 			Name:     f.Name,
 			IsFolder: 1,
-			ParentId: cast.ToString(f.ParentId),
+			Tag:      cast.ToString(f.ParentId),
 		})
 	}
 
