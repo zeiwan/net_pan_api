@@ -34,7 +34,7 @@ func (c *CloudQuark) GetSharePageFolderList(info module.ShareInfoResp) (resp []m
 				Id:       s.Fid,
 				Name:     s.FileName,
 				IsFolder: cast.ToUint8(s.FileType),
-				ParentId: s.Fid,
+				Tag:      s.Fid,
 				SToken:   s.ShareFidToken,
 			})
 		}
@@ -76,7 +76,7 @@ func (c *CloudQuark) GetSharePageAll(info module.ShareInfoResp) (resp module.Sha
 				Id:       s.Fid,
 				Name:     s.FileName,
 				IsFolder: cast.ToUint8(s.FileType),
-				ParentId: s.Fid,
+				Tag:      s.Fid,
 				SToken:   s.ShareFidToken,
 			})
 		} else {
@@ -134,7 +134,7 @@ func (c *CloudQuark) Copy(targetFolderId string, taskInfos []module.TaskInfosReq
 	//TODO implement me
 	panic("implement me")
 }
-func (c *CloudQuark) GetMyFileAll(id string) (resp module.MyDirAll, err error) {
+func (c *CloudQuark) GetMyFileAll(id string) (resp module.MyFolderAll, err error) {
 	m, err := c.core.getMyFolderNodes(id)
 	if err != nil {
 		return
