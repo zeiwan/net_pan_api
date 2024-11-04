@@ -15,13 +15,15 @@ type SharePageFolderListResp struct {
 	Id       string `json:"id"`
 	Name     string `json:"name"`
 	IsFolder uint8  `json:"isFolder"`
-	ParentId string `json:"parentId"`
-	SToken   string `json:"SToken"` // quark
+
+	SToken string `json:"SToken"` // quark
+	Tag    string `json:"tag"`    // 用来识别
 }
 type SharePageFileListResp struct {
 	Id       string `json:"id"`
 	Name     string `json:"name"`
 	IsFolder uint8  `json:"isFolder"`
+	Tag      string `json:"tag"` // 用来识别
 }
 type SharePageALL struct {
 	FolderList []SharePageFolderListResp
