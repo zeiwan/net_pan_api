@@ -40,6 +40,8 @@ type NetPan interface {
 	Move(targetFolderId string, taskInfos []module.TaskInfosReq) error
 	// Copy 复制文件
 	Copy(targetFolderId string, taskInfos []module.TaskInfosReq) error
+	// SaveFile 保存文件
+	SaveFile(targetFolderId string, taskInfos []module.TaskInfosReq) error
 }
 
 func NewCloud189() NetPan {

@@ -6,6 +6,7 @@
         <method importPath="github.com/ZeiWan/NetPanSDK/189" receiver="core" name="createBatchTask" />
         <method importPath="github.com/ZeiWan/NetPanSDK/quark" receiver="core" name="shareDetail" />
         <method importPath="github.com/ZeiWan/NetPanSDK/189" receiver="core" name="shareFolderList" />
+        <method importPath="github.com/zeiwan/net_pan_api/189" receiver="core" name="createBatchTask" />
       </methods>
     </inspection_tool>
   </profile>

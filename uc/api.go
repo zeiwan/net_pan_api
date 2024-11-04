@@ -6,10 +6,6 @@ import (
 	"github.com/zeiwan/net_pan_api/module"
 )
 
-func (c *CloudQuark) SaveFile(fileId string, taskInfos []module.TaskInfosReq) error {
-	panic("method SaveFile not implemented")
-}
-
 func (c *CloudQuark) AuthLogin(account module.Account) (*req.Client, error) {
 	return c.core.login(account)
 }
