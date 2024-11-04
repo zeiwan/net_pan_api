@@ -5,7 +5,7 @@ import (
 	"github.com/zeiwan/net_pan_api/module"
 )
 
-func (c CloudALi) SaveFile(fileId string, taskInfos []module.TaskInfosReq) error {
+func (c CloudALi) SaveFile(taskReq module.TaskShareReq, taskInfos []module.TaskInfosReq) error {
 	panic("implement me")
 }
 func (c CloudALi) AuthLogin(account module.Account) (*req.Client, error) {
@@ -73,7 +73,7 @@ func (c CloudALi) Copy(targetFolderId string, taskInfos []module.TaskInfosReq) e
 	panic("implement me")
 }
 
-func (c CloudALi) GetMyFileAll(id string) (module.MyDirAll, error) {
+func (c CloudALi) GetMyFileAll(id string) (module.MyFolderAll, error) {
 	//TODO implement me
 	panic("implement me")
 }

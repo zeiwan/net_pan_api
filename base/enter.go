@@ -27,7 +27,7 @@ type NetPan interface {
 	CreateFolder(parentFolderId, folderName string) (module.CreateFolderResp, error)
 	// GetMyFolder	获取我的目录
 	GetMyFolder(id string) ([]module.MyFolderListResp, error)
-	GetMyFileAll(id string) (module.MyDirAll, error)
+	GetMyFileAll(id string) (module.MyFolderAll, error)
 	//	GetMyFolderAll 获取我的目录所有文件
 	//GetMyFolderAll(id string) (model.MyFolderALL, error)
 	////	ShareLink 生成分享链接
@@ -41,7 +41,7 @@ type NetPan interface {
 	// Copy 复制文件
 	Copy(targetFolderId string, taskInfos []module.TaskInfosReq) error
 	// SaveFile 保存文件
-	SaveFile(targetFolderId string, taskInfos []module.TaskInfosReq) error
+	SaveFile(taskReq module.TaskShareReq, taskInfos []module.TaskInfosReq) error
 }
 
 func NewCloud189() NetPan {

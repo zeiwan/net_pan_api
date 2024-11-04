@@ -43,7 +43,7 @@ type MyFileListResp struct {
 	Tag  string `json:"tag"` // 用来识别
 }
 
-type MyDirAll struct {
+type MyFolderAll struct {
 	FolderList []MyFolderListResp
 	FileList   []MyFileListResp
 }

@@ -13,15 +13,15 @@ const (
 	SHARE_SAVE = "SHARE_SAVE"
 )
 
-func (c *Cloud189) SaveFile(targetFolderId string, taskInfos []module.TaskInfosReq) (err error) {
-	taskInfo, err := c.core.createBatchTask(SHARE_SAVE, targetFolderId, "", taskInfos)
+func (c *Cloud189) SaveFile(taskReq module.TaskShareReq, taskInfos []module.TaskInfosReq) (err error) {
+	taskInfo, err := c.core.createBatchTask(SHARE_SAVE, taskReq.TargetFolderId, taskReq.ShareId, taskInfos)
 	if err == nil && taskInfo.TaskId != "" {
 		return
 	}
 	return c.core.checkBatchTask(SHARE_SAVE, taskInfo.TaskId, 3)
 }
 
-func (c *Cloud189) GetMyFileAll(targetFolderId string) (resp module.MyDirAll, err error) {
+func (c *Cloud189) GetMyFileAll(targetFolderId string) (resp module.MyFolderAll, err error) {
 	m, err := c.core.getMyFileAll(targetFolderId)
 
 	if err != nil {

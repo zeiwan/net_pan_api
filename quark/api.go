@@ -6,7 +6,7 @@ import (
 	"github.com/zeiwan/net_pan_api/module"
 )
 
-func (c *CloudQuark) SaveFile(fileId string, taskInfos []module.TaskInfosReq) error {
+func (c *CloudQuark) SaveFile(taskReq module.TaskShareReq, taskInfos []module.TaskInfosReq) error {
 	panic("method SaveFile not implemented")
 }
 
@@ -138,7 +138,7 @@ func (c *CloudQuark) Copy(targetFolderId string, taskInfos []module.TaskInfosReq
 	//TODO implement me
 	panic("implement me")
 }
-func (c *CloudQuark) GetMyFileAll(id string) (resp module.MyDirAll, err error) {
+func (c *CloudQuark) GetMyFileAll(id string) (resp module.MyFolderAll, err error) {
 	m, err := c.core.getMyFolderNodes(id)
 	if err != nil {
 		return
